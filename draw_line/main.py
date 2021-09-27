@@ -115,7 +115,7 @@ def add_pixel(x_list, y_list, ax, color):
         x = x_list[i]
         y = y_list[i]
         ax.add_patch(patches.Rectangle((x - 1, y - 1), 1, 1, color=color))
-    
+
 
 def draw_line(x_list, y_list, color_0, xx_list, yy_list, color_1):
     fig = plt.figure()
@@ -165,6 +165,7 @@ def main():
         x_start, y_start, x_end, y_end)
     draw_line(DDA_x_list, DDA_y_list, color_for_DDA, Bresenham_x_list,
               Bresenham_y_list, color_for_Bresenham)
+
 
 if __name__ == '__main__':
     main()

@@ -15,7 +15,8 @@ def pointInRec(p):
         return True
     return False
 
-# 响应鼠标事件
+
+# 响应鼠标事件, 画矩形
 def draw_rectangle(event, x, y, flags, param):
     global ix, iy, drawing, px, py, l, notdone
 
@@ -58,7 +59,9 @@ def line_intersection(line1, line2):
     x = det(d, xdiff) / div
     y = det(d, ydiff) / div
     return x, y
-def fun(p1,p2):
+
+
+def fun(p1, p2):
     x1 = p1[0]
     y1 = p1[1]
     x2 = p2[0]
@@ -66,95 +69,100 @@ def fun(p1,p2):
     a = y2 - y1
     b = x1 - x2
     c = x2 * y1 - x1 * y2
-    return a,b,c
+    return a, b, c
 
 
 def clip_left(pointList):
-    global ix,iy,px,py
+    global ix, iy, px, py
     newList = []
     for i in range(len(pointList)):
-        p1 = pointList[i-1]
+        p1 = pointList[i - 1]
         p2 = pointList[i]
-        if p1[0]<ix and p2[0]>ix:  # 由外到内
-            a,b,c = fun(p1,p2)
-            y = (-c-a*ix)/b
-            intersection = [ix,y]
+        if p1[0] < ix and p2[0] > ix:  # 由外到内
+            a, b, c = fun(p1, p2)
+            y = (-c - a * ix) / b
+            intersection = [ix, y]
             newList.append(intersection)
             newList.append(p2)
-        elif p1[0]>ix and p2[0]>ix: #由内到内
+        elif p1[0] > ix and p2[0] > ix:  #由内到内
             newList.append(p2)
-        elif p1[0]>ix and p2[0]<ix: #由内到外
+        elif p1[0] > ix and p2[0] < ix:  #由内到外
             a, b, c = fun(p1, p2)
             y = (-c - a * ix) / b
             intersection = [ix, y]
             newList.append(intersection)
     return newList
 
+
 def clip_bottom(pointList):
     pointList = clip_left(pointList)
     global ix, iy, px, py
     newList = []
     for i in range(len(pointList)):
-        p1 = pointList[i-1]
+        p1 = pointList[i - 1]
         p2 = pointList[i]
-        if p1[1]<iy and p2[1]>iy:  # 由外到内
-            a,b,c = fun(p1,p2)
-            x = (-c-b*iy)/a
-            intersection = [x,iy]
+        if p1[1] < iy and p2[1] > iy:  # 由外到内
+            a, b, c = fun(p1, p2)
+            x = (-c - b * iy) / a
+            intersection = [x, iy]
             newList.append(intersection)
             newList.append(p2)
-        elif p1[1]>iy and p2[1]>iy: #由内到内
+        elif p1[1] > iy and p2[1] > iy:  #由内到内
             newList.append(p2)
-        elif p1[1]>iy and p2[1]<iy: #由内到外
+        elif p1[1] > iy and p2[1] < iy:  #由内到外
             a, b, c = fun(p1, p2)
-            x = (-c-b*iy)/a
+            x = (-c - b * iy) / a
             intersection = [x, iy]
             newList.append(intersection)
     return newList
 
+
 def clip_right(pointList):
     pointList = clip_bottom(pointList)
-    global ix,iy,px,py
+    global ix, iy, px, py
     newList = []
     for i in range(len(pointList)):
-        p1 = pointList[i-1]
+        p1 = pointList[i - 1]
         p2 = pointList[i]
-        if p1[0]>px and p2[0]<px:  # 由外到内
-            a,b,c = fun(p1,p2)
-            y = (-c-a*px)/b
-            intersection = [px,y]
+        if p1[0] > px and p2[0] < px:  # 由外到内
+            a, b, c = fun(p1, p2)
+            y = (-c - a * px) / b
+            intersection = [px, y]
             newList.append(intersection)
             newList.append(p2)
-        elif p1[0]<px and p2[0]<px: #由内到内
+        elif p1[0] < px and p2[0] < px:  #由内到内
             newList.append(p2)
-        elif p1[0]<px and p2[0]>px: #由内到外
+        elif p1[0] < px and p2[0] > px:  #由内到外
             a, b, c = fun(p1, p2)
             y = (-c - a * px) / b
             intersection = [px, y]
             newList.append(intersection)
     return newList
 
+
 def clip_top(pointList):
     pointList = clip_right(pointList)
     global ix, iy, px, py
     newList = []
     for i in range(len(pointList)):
-        p1 = pointList[i-1]
+        p1 = pointList[i - 1]
         p2 = pointList[i]
-        if p1[1]>py and p2[1]<py:  # 由外到内
-            a,b,c = fun(p1,p2)
-            x = (-c-b*py)/a
-            intersection = [x,py]
+        if p1[1] > py and p2[1] < py:  # 由外到内
+            a, b, c = fun(p1, p2)
+            x = (-c - b * py) / a
+            intersection = [x, py]
             newList.append(intersection)
             newList.append(p2)
-        elif p1[1]<py and p2[1]<py: #由内到内
+        elif p1[1] < py and p2[1] < py:  #由内到内
             newList.append(p2)
-        elif p1[1]<py and p2[1]>py: #由内到外
+        elif p1[1] < py and p2[1] > py:  #由内到外
             a, b, c = fun(p1, p2)
-            x = (-c-b*py)/a
+            x = (-c - b * py) / a
             intersection = [x, py]
             newList.append(intersection)
     return newList
+
+
 if __name__ == '__main__':
     img = np.zeros((512, 512, 3), np.uint8)
     cv2.namedWindow('image')
@@ -187,6 +195,5 @@ if __name__ == '__main__':
     ax.invert_yaxis()  # 反转Y坐标轴
     plt.plot(x, y)
     plt.plot(x1, y1, color='red')
-    plt.plot(x2, y2, color='black', linewidth='5')
+    plt.plot(x2, y2, color='black', linewidth='2')
     plt.show()
-
