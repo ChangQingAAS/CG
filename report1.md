@@ -78,6 +78,9 @@
   
     依次计算x3，y3，x4，y4…直到终点xn，yn。像素点集合（xi，Round（yi））即为组成直线的像素点，其中0<=i<=n。
   
+  - Bresenham 算法
+  
+    ![算法描述](https://cdn.jsdelivr.net/gh/ChangQingAAS/for_picgo/img/20210927174125.png)
 
 ## 三、实验结果
 
