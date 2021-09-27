@@ -1,0 +1,20 @@
+
+
+//绘制一个像素
+CClientDC dc(this); // device context for painting
+dc.SetPixel(x,y,RGB(255,0,0)). 
+
+
+//填充矩形区域
+CClientDC dc(this);
+HBRUSH hBrush=CreateSolidBrush(RGB(255,0,0)); //创建画刷并设置颜色
+CBrush brush(RGB(255,0,0));//选定画刷
+CRect rect(0,0,100,100); //矩形区域
+dc.FillRect(&rect,&brush);//填充矩形
+
+CPen Mypen;
+
+	// Blue solid pen width = 1
+Mypen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+dc.SelectObject(&pPen);
+dc.SetPixel(x, y);
