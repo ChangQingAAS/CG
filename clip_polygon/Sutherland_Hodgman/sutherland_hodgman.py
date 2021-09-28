@@ -170,10 +170,10 @@ def clip_top(pointList):
 
 if __name__ == '__main__':
     img = np.zeros((512, 512, 3), np.uint8)
-    cv2.namedWindow('image')
-    cv2.setMouseCallback('image', draw_rectangle)
+    cv2.namedWindow('Sutherland-hodgman')
+    cv2.setMouseCallback('Sutherland-hodgman', draw_rectangle)
     while (1):
-        cv2.imshow('image', img)
+        cv2.imshow('Sutherland-hodgman', img)
         k = cv2.waitKey(1) & 0xFF
         if k == ord('q'):
             break
