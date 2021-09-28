@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from pylab import *
+import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import matplotlib.patches as patches
 
@@ -21,6 +21,8 @@ def Round(x):
 
 
 def Input():
+    """输入起点和终点
+    """
     x_start, y_start = map(int, input("请输入起点: ").split())
     x_end, y_end = map(int, input("请输入终点: ").split())
     return x_start, y_start, x_end, y_end
@@ -34,6 +36,7 @@ def draw_line_by_DDA(x_start, y_start, x_end, y_end):
     min_y = min(y_start, y_end)
     max_y = max(y_start, y_end)
 
+    # 定义像素点列表
     x_list = []
     y_list = []
 
@@ -72,22 +75,31 @@ def draw_line_by_DDA(x_start, y_start, x_end, y_end):
 
 
 def draw_line_by_Bresenham(x_start, y_start, x_end, y_end):
+
     dx = abs(x_end - x_start)
     dy = abs(y_end - y_start)
+
     # 根据直线的走势方向，设置变化的单位是正是负
     s1 = 1 if ((x_end - x_start) > 0) else -1
     s2 = 1 if ((y_end - y_start) > 0) else -1
+
     # 根据斜率的大小，交换dx和dy，可以理解为变化x轴和y轴使得斜率的绝对值为[0,1]
     change_xy = False
+
     if dy > dx:
         dx, dy = dy, dx
         change_xy = True
+
     # 初始误差
     p = 2 * dy - dx
     x = x_start
     y = y_start
+
+    # 定义像素点列表
     x_list = []
     y_list = []
+
+    # 循环，以求出所有像素点
     for i in range(0, int(dx + 1)):
         x_list.append(x)
         y_list.append(y)
@@ -110,17 +122,25 @@ def draw_line_by_Bresenham(x_start, y_start, x_end, y_end):
 
 
 def add_pixel(x_list, y_list, ax, color):
+    """在画布上画上像素点
 
+    Args:
+        x_list和y_list:  像素点位置
+    """
     for i in range(len(x_list)):
         x = x_list[i]
         y = y_list[i]
         ax.add_patch(patches.Rectangle((x - 1, y - 1), 1, 1, color=color))
 
 
-def draw_line(x_list, y_list, color_0, xx_list, yy_list, color_1):
+def draw_line(x_list, y_list, color, title):
+
+    # 定义画布
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    plt.title("DDA")
+
+    # 定义 title和 label名称
+    plt.title(title)
     plt.xlabel("x - label")
     plt.ylabel("y - label")
 
@@ -140,18 +160,13 @@ def draw_line(x_list, y_list, color_0, xx_list, yy_list, color_1):
     ax.xaxis.set_major_formatter(majorFormatter)
     ax.yaxis.set_major_formatter(majorFormatter)
 
-    ax.grid(True, color='black', linewidth=1)  # x坐标轴的网格使用主刻度
+    ax.grid(True, color='black', linewidth=1)
     # -----------------------------------
 
-    # --------------画点--------------
-    add_pixel(x_list, y_list, ax, color_0)
-    add_pixel(xx_list, yy_list, ax, color_1)
-    # -------------------------
+    # 画点
+    add_pixel(x_list, y_list, ax, color)
 
     plt.show()
-    if y_list != yy_list:
-        print(y_list)
-        print(yy_list)
 
 
 def main():
@@ -163,8 +178,10 @@ def main():
     DDA_x_list, DDA_y_list = draw_line_by_DDA(x_start, y_start, x_end, y_end)
     Bresenham_x_list, Bresenham_y_list = draw_line_by_Bresenham(
         x_start, y_start, x_end, y_end)
-    draw_line(DDA_x_list, DDA_y_list, color_for_DDA, Bresenham_x_list,
-              Bresenham_y_list, color_for_Bresenham)
+
+    draw_line(DDA_x_list, DDA_y_list, color_for_DDA, "draw by DDA Algorithm")
+    draw_line(Bresenham_x_list, Bresenham_y_list, color_for_Bresenham,
+              "draw line by Bresenham Algorithm")
 
 
 if __name__ == '__main__':

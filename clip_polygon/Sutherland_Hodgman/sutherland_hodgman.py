@@ -9,15 +9,17 @@ px, py = -1, -1  # 右上角
 l = []  # 多边形顶点的列表
 
 
-# 判断点P是否在区域内
 def pointInRec(p):
+    """判断点P是否在区域内
+    """
     if ix <= p[0] <= px and iy <= p[1] <= py:
         return True
     return False
 
 
-# 响应鼠标事件, 画矩形
 def draw_rectangle(event, x, y, flags, param):
+    """响应鼠标事件, 画矩形
+    """
     global ix, iy, drawing, px, py, l, notdone
 
     if event == cv2.EVENT_LBUTTONDOWN and notdone == True:  # 鼠标左键画矩形
@@ -43,8 +45,9 @@ def draw_rectangle(event, x, y, flags, param):
         cv2.polylines(img, [pts], True, (255, 255, 255))
 
 
-# 计算两条线的交点
 def line_intersection(line1, line2):
+    """计算两条线的交点
+    """
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
 
@@ -62,6 +65,8 @@ def line_intersection(line1, line2):
 
 
 def fun(p1, p2):
+    """求出两个点的delta y,delta  x, 叉积
+    """
     x1 = p1[0]
     y1 = p1[1]
     x2 = p2[0]
