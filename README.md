@@ -15,7 +15,7 @@ Computer Graphics Lab in TJU.
 
 ## 多边形裁剪算法
 
-- [Sutherland-Hodgman algorithm](clip_polygon/Sutherland-Hodgman/Sutherland-Hodgman.py)
+- [Sutherland-Hodgman algorithm](clip_polygon/Sutherland_Hodgman/sutherland_hodgman.py)
 <img src="https://cdn.jsdelivr.net/gh/ChangQingAAS/for_picgo/img/20210928190351.png" width="300"   />
 
 
